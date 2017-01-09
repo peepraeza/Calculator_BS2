@@ -1,0 +1,51 @@
+class Calculator:
+
+    def __init__(self, example):
+        self.ex = example.split(" ")
+        self.len = len(self.ex)
+        self.number = []
+        self.operator = []
+        self.i = 0
+
+    def calculate(self):
+        self.add_string()
+        self.print_answer()
+
+    def add_string(self):
+        while (self.i < self.len):
+            if(self.ex[self.i] != "+" and self.ex[self.i] != "-" and self.ex[self.i] != "x" and 
+                self.ex[self.i] != "/" and self.ex[self.i] != "(" and self.ex[self.i] != ")"):
+                self.number.append(self.ex[self.i])
+
+            elif(self.ex[self.i] == "+" or self.ex[self.i] == "-" or self.ex[self.i] == "x" or 
+                self.ex[self.i] == "/"):
+                self.operator.append(self.ex[self.i])
+
+            elif(self.ex[self.i] == ")"):
+                self.cal()
+        
+            self.i += 1
+            
+        if(len(self.number) >= 2 and len(self.operator) >= 1):
+            self.cal()
+        
+
+    def cal(self):
+        b = float(self.number.pop())
+        a = float(self.number.pop())
+        op = self.operator.pop()
+        if(op == "+"):
+            self.number.append(a+b)
+        elif(op == "-"):
+            self.number.append(a-b)
+        elif(op == "x"):
+            self.number.append(a*b)
+        elif(op == "/"):
+            self.number.append(a/b)
+
+    def print_answer(self):
+        print(self.number)
+        print(self.operator)
+
+d = Calculator("2 x 10")
+d.calculate()
