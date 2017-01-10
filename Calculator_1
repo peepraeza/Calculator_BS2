@@ -22,18 +22,18 @@ class Calculator:
                 self.operator.append(self.ex[self.i])
 
             elif(self.ex[self.i] == ")"):
-                self.cal()
+                b = float(self.number.pop())
+                a = float(self.number.pop())
+                op = self.operator.pop()
+                self.cal(a, b, op)
         
             self.i += 1
             
         if(len(self.number) >= 2 and len(self.operator) >= 1):
             self.cal()
         
-
-    def cal(self):
-        b = float(self.number.pop())
-        a = float(self.number.pop())
-        op = self.operator.pop()
+        
+    def cal(self, a, b, op):
         if(op == "+"):
             self.number.append(a+b)
         elif(op == "-"):
@@ -47,5 +47,5 @@ class Calculator:
         print(self.number)
         print(self.operator)
 
-d = Calculator("2 x 10")
+d = Calculator("( 2 x 10 )")
 d.calculate()
