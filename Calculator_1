@@ -1,75 +1,60 @@
 class Calculator:
-
-    def __init__(self, example):
-        self.ex = example.split(" ")
+    def __init__(self, example): 
+        self.ex = example.split(" ") # split string to list
         self.len = len(self.ex)
         self.number = []
         self.operator = []
         self.i = 0
 
-    def calculate(self):
-        self.add_string()
-        self.print_answer()
+    def calculate(self): # function initial
+        self.add_string() # call add_string function
+        self.print_answer() # call print_answer function
 
     def add_string(self):
-        while (self.i < self.len):
-            if(self.ex[self.i] != "+" and self.ex[self.i] != "-" and self.ex[self.i] != "x" and 
-                self.ex[self.i] != "/" and self.ex[self.i] != "(" and self.ex[self.i] != ")"):
-                self.number.append(self.ex[self.i])
-
-            elif(self.ex[self.i] == "+" or self.ex[self.i] == "-" or self.ex[self.i] == "x" or 
+        while (self.i < self.len): # if in variable have parenthesis
+            if(self.ex[self.i].isdigit() and self.ex[self.i] != "(" and self.ex[self.i] != ")"): # if variable is number
+                self.number.append(self.ex[self.i]) # add operator to stack operator
+            elif(self.ex[self.i] == "+" or self.ex[self.i] == "-" or self.ex[self.i] == "x" or # if variable is operator
                 self.ex[self.i] == "/"):
-                self.operator.append(self.ex[self.i])
-
+                self.operator.append(self.ex[self.i]) # add operator to stack operator
             elif(self.ex[self.i] == ")"):
                 b = float(self.number.pop())
                 a = float(self.number.pop())
                 op = self.operator.pop()
-                self.number.append(self.cal(a, b, op))
-        
+                self.number.append(self.cal(a, b, op)) 
             self.i += 1
         self.i = 0
         
-        while(len(self.number) >= 2):
-            if("x" in self.operator or "/" in self.operator):
+        while(len(self.number) >= 2): # if in variable have not parenthesis
+            if("x" in self.operator or "/" in self.operator): # if multiple or divider in stack operator
                 for i in range(len(self.operator)):
                     if(self.operator[i] == "x" or self.operator[i] == "/"):
-                        self.insert_string(i)
-                        print("x/ True")
-                        print(self.number)
+                        self.insert_number(i) 
                         break
-
-            elif(("+" in self.operator or "-" in self.operator) and 
-            (not "x" in self.operator and not "/" in self.operator)):
+            elif(not "x" in self.operator and not "/" in self.operator): # if addition or minus in stack operator
                 for i in range(len(self.operator)):
                     if(self.operator[i] == "+" or self.operator[i] == "-"):
-                        self.insert_string(i)
-                        print("+- True")
-                        print(self.number)
+                        self.insert_number(i)
                         break
                         
-    def insert_string(self, index):
+    def insert_number(self, index): # function for insert number in stack number
         a = float(self.number.pop(index))
         b = float(self.number.pop(index))
         op = self.operator.pop(index)
-        print("a :",a, "b :", b,"op :", op)
-        print(self.operator)
-        self.number.insert(index, self.cal(a, b, op))
+        self.number.insert(index, self.cal(a, b, op)) # insert number
         
-        
-    def cal(self, a, b, op):
+    def cal(self, a, b, op): # function for calculate number
         if(op == "+"):
-            return (a+b)
+            return (a+b) 
         elif(op == "-"):
-            return (a - b)
+            return (a-b)
         elif(op == "x"):
             return (a*b)
         elif(op == "/"):
             return (a/b)
 
-    def print_answer(self):
-        print(self.number)
-        print(self.operator)
+    def print_answer(self): # function for print answer
+        print(self.number[0])
 
-d = Calculator("100 / 5 / 10 x 10 + 10 x 100")
-d.calculate()
+ex = Calculator(input("Enter algebra:"))
+ex.calculate()
