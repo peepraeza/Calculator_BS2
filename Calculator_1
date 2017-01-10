@@ -7,10 +7,10 @@ class Calculator:
         self.i = 0
 
     def calculate(self): # function initial
-        self.add_string() # call add_string function
+        self.add_data() # call add_data function
         self.print_answer() # call print_answer function
 
-    def add_string(self):
+    def add_data(self):
         while (self.i < self.len): # if in variable have parenthesis
             if(self.ex[self.i].isdigit() and self.ex[self.i] != "(" and self.ex[self.i] != ")"): # if variable is number
                 self.number.append(self.ex[self.i]) # add operator to stack operator
@@ -29,15 +29,15 @@ class Calculator:
             if("x" in self.operator or "/" in self.operator): # if multiple or divider in stack operator
                 for i in range(len(self.operator)):
                     if(self.operator[i] == "x" or self.operator[i] == "/"):
-                        self.insert_number(i) 
+                        self.insert_data(i) 
                         break
             elif(not "x" in self.operator and not "/" in self.operator): # if addition or minus in stack operator
                 for i in range(len(self.operator)):
                     if(self.operator[i] == "+" or self.operator[i] == "-"):
-                        self.insert_number(i)
+                        self.insert_data(i)
                         break
                         
-    def insert_number(self, index): # function for insert number in stack number
+    def insert_data(self, index): # function for insert data in stack number
         a = float(self.number.pop(index))
         b = float(self.number.pop(index))
         op = self.operator.pop(index)
