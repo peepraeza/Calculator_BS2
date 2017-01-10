@@ -25,27 +25,48 @@ class Calculator:
                 b = float(self.number.pop())
                 a = float(self.number.pop())
                 op = self.operator.pop()
-                self.cal(a, b, op)
+                self.number.append(self.cal(a, b, op))
         
             self.i += 1
-            
-        if(len(self.number) >= 2 and len(self.operator) >= 1):
-            self.cal()
+        self.i = 0
+        
+        while(self.i < len(self.operator)):
+            for i in range(len(self.operator)):
+                if(self.operator[i] == "x"):
+                    self.insert_string(i)
+                    break
+                elif(self.operator[i] == "/"):
+                    self.insert_string(i)
+                    break
+            for i in range(len(self.operator)):
+                if(self.operator[i] == "+"):
+                    self.insert_string(i)
+                    break
+                elif(self.operator[i] == "-"):
+                    self.insert_string(i)
+                    break
+            self.i += 1 
+    
+    def insert_string(self, index):
+        b = float(self.number.pop(index))
+        a = float(self.number.pop(index))
+        op = self.operator.pop(index)
+        self.number.insert(index, self.cal(a, b, op))
         
         
     def cal(self, a, b, op):
         if(op == "+"):
-            self.number.append(a+b)
+            return (a+b)
         elif(op == "-"):
-            self.number.append(a-b)
+            return (a-b)
         elif(op == "x"):
-            self.number.append(a*b)
+            return (a*b)
         elif(op == "/"):
-            self.number.append(a/b)
+            return (a/b)
 
     def print_answer(self):
         print(self.number)
         print(self.operator)
 
-d = Calculator("( 2 x 10 )")
+d = Calculator("100 x ( 5 - 10 )")
 d.calculate()
