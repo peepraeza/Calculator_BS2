@@ -6,13 +6,15 @@ class Calculator:
         self.operator = [] # stack operator from example
         self.number_cal = [] # stack number for prepare calculate 
         self.operator_cal = [] # stack operator for prepare calculate
-        self.i = 0
 
     def string_to_array(self, string):
         i = 0
+        text = ""
         while(i < len(string)):
-            if(string[i].isdigit()):
-                text = ""
+            if((string[i] == "-" and i == 0) or 
+                (string[i] == "-" and string[i-1] == "(")):
+                text += string[i]
+            elif(string[i].isdigit()):  
                 text += string[i]
                 for j in range(i+1, len(string)):
                     if(string[j].isdigit() or string[j] == "."):
@@ -20,8 +22,10 @@ class Calculator:
                         i += 1
                     else:
                         break
-                self.ex.append(text)
-            elif(string[i] != " " or string[i] == "-"):
+                self.ex.append(float(text))
+
+                text = ""
+            elif(string[i] != " "):
                 self.ex.append(string[i])
             i += 1
 
@@ -35,20 +39,16 @@ class Calculator:
 
 
     def add_data(self):
-        while (self.i < len(self.ex)): # if in variable have parenthesis
-            if(self.ex[self.i].isdigit() or self.ex[self.i] == "("): # if variable is number
-                self.number.append(self.ex[self.i]) # add operator to stack operator
-            elif(self.ex[self.i] == "+" or self.ex[self.i] == "-" or 
-            self.ex[self.i] == "x" or self.ex[self.i] == "*" or self.ex[self.i] == "/"): # if variable is operator
-                self.operator.append(self.ex[self.i]) # add operator to stack operator
-            elif(self.ex[self.i] == ")"):
+        for i in range(len(self.ex)): # if in variable have parenthesis
+            if(isinstance(self.ex[i], (float)) or self.ex[i] == "("): # if variable is number
+                self.number.append(self.ex[i]) # add operator to stack operator
+            elif(self.ex[i] == "+" or self.ex[i] == "-" or 
+            self.ex[i] == "x" or self.ex[i] == "*" or self.ex[i] == "/"): # if variable is operator
+                self.operator.append(self.ex[i]) # add operator to stack operator
+            elif((self.ex[i] == ")")):
                 self.move_data()
-                self.check_data()
-            self.i += 1
-
-        if(self.i == len(self.ex)):
-            self.move_data()           
-            self.check_data()
+        if(i == len(self.ex)-1 and len(self.number) >= 2):
+            self.move_data()
         
     def move_data(self): # method move data from stack number to stack number_cal for calculate
         for i in range(len(self.number)-1, -1, -1):
@@ -57,10 +57,11 @@ class Calculator:
             else:
                 self.number.pop() # 
                 break
-        self.number_cal.reverse()
         for i in range(len(self.number_cal)-2, -1, -1):
             self.operator_cal.append(self.operator.pop())
+        self.number_cal.reverse()
         self.operator_cal.reverse()
+        self.check_data()
 
     def check_data(self):
         while(len(self.number_cal) >= 2):
@@ -78,8 +79,8 @@ class Calculator:
             self.number.append(self.number_cal.pop())
                         
     def insert_data(self, index): # function for insert data in stack number
-        a = float(self.number_cal.pop(index))
-        b = float(self.number_cal.pop(index))
+        a = self.number_cal.pop(index)
+        b = self.number_cal.pop(index)
         op = self.operator_cal.pop(index)
         self.number_cal.insert(index, self.cal(a, b, op)) # insert number
         
@@ -94,7 +95,11 @@ class Calculator:
             return (a/b)
 
     def print_answer(self): # function for print answer
-        print(self.exam,"=",self.number[0])
-
-ex = Calculator("(3)")
-ex.calculate()
+        if (float(self.number[0].is_integer())):
+            result = int(self.number[0])
+        else:
+            result = self.number[0]
+        print(self.exam,"=",result)
+while True:
+    ex = Calculator(input("Enter Example :"))
+    ex.calculate()
