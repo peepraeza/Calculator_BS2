@@ -29,7 +29,7 @@ class Calculator:
         try:
             self.string_to_array(self.exam)
             self.add_data() # call add_data function
-            self.print_answer() # call print_answer function
+            #self.print_answer() # call print_answer function
         except:
             print("ERROR")
 
@@ -42,9 +42,10 @@ class Calculator:
             self.ex[self.i] == "x" or self.ex[self.i] == "/"): # if variable is operator
                 self.operator.append(self.ex[self.i]) # add operator to stack operator
             elif(self.ex[self.i] == ")"):
-                print(self.number, self.operator)
+                print("move", self.number_cal)
                 self.move_data()
-                print("move")
+                print(self.number, self.operator)
+                
                 self.check_data()
                 print("check")
             self.i += 1
@@ -59,32 +60,40 @@ class Calculator:
                 self.number.pop() # 
                 break
         self.number_cal.reverse()
-
-        for i in range(len(self.operator)-1, 0, -1):
+        print("number22",self.number_cal)
+        print("op_ori",self.operator)
+        for i in range(len(self.number_cal)-2, -1, -1):
+            print(i)
             self.operator_cal.append(self.operator.pop())
         self.operator_cal.reverse()
+        print("op:",self.operator_cal)
+        print("num:",self.number_cal)
 
 
     def check_data(self):
         print("KK")
         while(len(self.number_cal) >= 2):
+            print("x" in self.operator_cal or "/" in self.operator_cal)
             if("x" in self.operator_cal or "/" in self.operator_cal): # if multiple or divider in stack operator
-                print("x")
+                print("xxx")
                 for i in range(len(self.operator_cal)):
                     if(self.operator_cal[i] == "x" or self.operator_cal[i] == "/"):
                         print(self.number_cal)
                         self.insert_data(i) 
                         break
-            elif(not "x" in self.operator_cal and not "/" in self.operator_cal): # if addition or minus in stack operator
+            elif("+" in self.operator_cal or "-" in self.operator_cal): # if addition or minus in stack operator
                 print("X")
                 for i in range(len(self.operator_cal)):
+                    print(i)
                     if(self.operator_cal[i] == "+" or self.operator_cal[i] == "-"):
                         print(self.number_cal)
                         self.insert_data(i)
                         break
         if(len(self.number_cal) < 2):
+            print(self.number_cal)
             print("Hello")
-            self.number.append(self.number_cal[0])
+            self.number.append(self.number_cal.pop())
+            print("number",self.number)
                         
     def insert_data(self, index): # function for insert data in stack number
         a = float(self.number_cal.pop(index))
@@ -105,5 +114,5 @@ class Calculator:
     def print_answer(self): # function for print answer
         print(self.number[0])
 
-ex = Calculator("(2+1)")
+ex = Calculator("(4/5-(3x6+5/3+2))")
 ex.calculate()
