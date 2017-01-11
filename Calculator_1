@@ -1,16 +1,41 @@
 class Calculator:
     def __init__(self, example): 
-        self.ex = example.split(" ") # split string to list
-        self.len = len(self.ex)
+        self.exam = example # split string to list
+        self.len = len(self.exam)
         self.number = []
         self.operator = []
+        self.ex = []
         self.i = 0
 
-    def calculate(self): # function initial
-        self.add_data() # call add_data function
-        self.print_answer() # call print_answer function
+    def string_to_array(self, string):
+        i = 0
+        j = 0
+        #print(string)
+        while(i < len(string)):
+            #print(string[i])
+            if(string[i].isdigit()):
+            	j = i
+                while(string[j].isdigit() and j < len(string[j])):
+                    if(string[j].isdigit() and string[j+1].isdigit()):
+                        self.ex.append(string[j]+string[j+1])
+                    else:
+                        self.ex.append(string[j])
+                    j += 1
+            else:
+            	self.ex.append(string[i])
+                
+            i += 1
+            print(i)
+            print(len(string))
+            print(self.ex)
 
-    def add_data(self):
+    def calculate(self): # function initial
+        self.string_to_array(self.exam)
+        #print(self.exam)
+        #self.add_data() # call add_data function
+        #self.print_answer() # call print_answer function
+
+    '''def add_data(self):
         while (self.i < self.len): # if in variable have parenthesis
             if(self.ex[self.i].isdigit() and self.ex[self.i] != "(" and self.ex[self.i] != ")"): # if variable is number
                 self.number.append(self.ex[self.i]) # add operator to stack operator
@@ -54,7 +79,7 @@ class Calculator:
             return (a/b)
 
     def print_answer(self): # function for print answer
-        print(self.number[0])
+        print(self.number[0])'''
 
-ex = Calculator(input("Enter algebra:"))
+ex = Calculator("(3+2)")
 ex.calculate()
