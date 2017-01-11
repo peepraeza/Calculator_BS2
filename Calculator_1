@@ -1,40 +1,36 @@
 class Calculator:
     def __init__(self, example): 
-        self.exam = example # split string to list
-        self.len = len(self.exam)
+        self.exam = example
+        self.ex = []
         self.number = []
         self.operator = []
-        self.ex = []
         self.i = 0
 
     def string_to_array(self, string):
         i = 0
-        while(i < len(string)-1):
+        while(i < len(string)):
             if(string[i].isdigit()):
-            	text = ""
-                for i in range(len(string)):
-                    if(string[i].isdigit() and string[i+1].isdigit()):
-                        text += string[i]
-                        if(i == len(string)-2):
-                            text += string[i+1]
-                            self.ex.append(text)
-                            break
+                text = ""
+                text += string[i]
+                for j in range(i+1, len(string)):
+                    if(string[j].isdigit() or string[j] == "."):
+                        text += string[j]
+                        i += 1
                     else:
-                        text += string[i]
-                        self.ex.append(text)
                         break
-            else:
-            	self.ex.append(string[i])
+                self.ex.append(text)
+            elif(string[i] != " "):
+                self.ex.append(string[i])
             i += 1
 
     def calculate(self): # function initial
         self.string_to_array(self.exam)
-        #print(self.exam)
-        #self.add_data() # call add_data function
-        #self.print_answer() # call print_answer function
+        print(self.ex, len(self.ex))
+        self.add_data() # call add_data function
+        self.print_answer() # call print_answer function
 
-    '''def add_data(self):
-        while (self.i < self.len): # if in variable have parenthesis
+    def add_data(self):
+        while (self.i < len(self.ex)): # if in variable have parenthesis
             if(self.ex[self.i].isdigit() and self.ex[self.i] != "(" and self.ex[self.i] != ")"): # if variable is number
                 self.number.append(self.ex[self.i]) # add operator to stack operator
             elif(self.ex[self.i] == "+" or self.ex[self.i] == "-" or self.ex[self.i] == "x" or # if variable is operator
@@ -77,7 +73,7 @@ class Calculator:
             return (a/b)
 
     def print_answer(self): # function for print answer
-        print(self.number[0])'''
+        print(self.number[0])
 
-ex = Calculator("(322+2455)+54-55-222")
+ex = Calculator("(1+1)/2")
 ex.calculate()
