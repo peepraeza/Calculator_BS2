@@ -7,27 +7,33 @@ class Calculator:
         self.i = 0
 
     def string_to_array(self, string):
-        i = 0
-        while(i < len(string)):
-            if(string[i].isdigit()):
-                text = ""
-                text += string[i]
-                for j in range(i+1, len(string)):
-                    if(string[j].isdigit() or string[j] == "."):
-                        text += string[j]
-                        i += 1
-                    else:
-                        break
-                self.ex.append(text)
-            elif(string[i] != " "):
-                self.ex.append(string[i])
-            i += 1
+        try:
+            i = 0
+            while(i < len(string)):
+                if(string[i].isdigit()):
+                    text = ""
+                    text += string[i]
+                    for j in range(i+1, len(string)):
+                        if(string[j].isdigit() or string[j] == "."):
+                            text += string[j]
+                            i += 1
+                        else:
+                            break
+                    self.ex.append(text)
+                elif(string[i] != " "):
+                    self.ex.append(string[i])
+                i += 1
+        except:
+            print("ERROR")
 
     def calculate(self): # function initial
-        self.string_to_array(self.exam)
-        print(self.ex, len(self.ex))
-        self.add_data() # call add_data function
-        self.print_answer() # call print_answer function
+        try:
+            self.string_to_array(self.exam)
+            self.add_data() # call add_data function
+            self.print_answer() # call print_answer function
+        except:
+            print("ERROR")
+
 
     def add_data(self):
         while (self.i < len(self.ex)): # if in variable have parenthesis
@@ -75,5 +81,5 @@ class Calculator:
     def print_answer(self): # function for print answer
         print(self.number[0])
 
-ex = Calculator("(1+1)/2")
+ex = Calculator("(1+2)")
 ex.calculate()
