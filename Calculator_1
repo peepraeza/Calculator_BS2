@@ -9,26 +9,23 @@ class Calculator:
 
     def string_to_array(self, string):
         i = 0
-        while(i < len(string)):
-            print(string[i])
+        while(i < len(string)-1):
             if(string[i].isdigit()):
             	text = ""
-                while(i < len(string)):
+                for i in range(len(string)):
                     if(string[i].isdigit() and string[i+1].isdigit()):
                         text += string[i]
-                        print("text555:",text)
+                        if(i == len(string)-2):
+                            text += string[i+1]
+                            self.ex.append(text)
+                            break
                     else:
                         text += string[i]
-                        print("text2",text)
                         self.ex.append(text)
                         break
-                    i += 1
             else:
             	self.ex.append(string[i])
-                
             i += 1
-            print(self.ex)
-            #print(string)
 
     def calculate(self): # function initial
         self.string_to_array(self.exam)
@@ -82,5 +79,5 @@ class Calculator:
     def print_answer(self): # function for print answer
         print(self.number[0])'''
 
-ex = Calculator("(322+2455)+54-55")
+ex = Calculator("(322+2455)+54-55-222")
 ex.calculate()
