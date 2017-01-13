@@ -20,7 +20,7 @@ class Calculator:
             self.add_data()                  # Call method for add number and operator to stacks
             self.print_answer()              # Call method for print answer
         except:
-            print("ERROR")
+            print("Question error please try again")
     
     # Method for change string to Array list
     def string_to_array(self, string):
@@ -102,7 +102,8 @@ class Calculator:
         a = number_cal.pop(index)
         b = number_cal.pop(index)
         op = operator_cal.pop(index)
-        result = self.compute(a, b, op)  # Call method compute to calculate and keep in result 
+        result = self.compute(a, b, op)  # Call method compute to calculate and keep in result
+        print(result)
         number_cal.insert(index, result) # Insert result to the position followed index
 
     # Method for calculate number
@@ -125,5 +126,5 @@ class Calculator:
             result = self.number[0]
         print(self.exam,"=",result)
 
-ex = Calculator("1+2")
+ex = Calculator("16 ÷ 2x(8 - 3x(4 - 2)) + 1")
 ex.calculate()
