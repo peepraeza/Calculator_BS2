@@ -126,5 +126,5 @@ class Calculator:
             result = self.number[0]
         print(self.exam,"=",result)
 
-ex = Calculator("16 ÷ 2x(8 - 3x(4 - 2)) + 1")
+ex = Calculator(input("Enter Example :"))
 ex.calculate()
